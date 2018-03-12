@@ -1,0 +1,7 @@
+#!/bin/bash
+
+DIR=$(dirname $0)
+CMD="$DIR/funding.sh"
+CLASS="de.topobyte.funding.FundingCli"
+
+exec "$CMD" "$CLASS" "$@"
