@@ -1,0 +1,3 @@
+include 'cli', 'core'
+project(':cli').name = 'funding-cli'
+project(':core').name = 'funding-core'
