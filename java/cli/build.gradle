@@ -1,5 +1,8 @@
 dependencies {
     compile project(':funding-core')
+
+    compile 'de.topobyte:commons-cli-helper:0.0.6'
+    compile 'de.topobyte:system-utils:0.0.1'
 }
 
 task copyJars(type: Copy) {

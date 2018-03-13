@@ -2,6 +2,7 @@
 
 DIR=$(dirname $0)
 LIBS="$DIR/../cli/build/lib-run"
+REPO=$(readlink -f "$DIR/../../")
 
 if [ ! -d "$LIBS" ]; then
 	echo "Please run 'gradle createRuntime'"
@@ -10,4 +11,4 @@ fi
 
 CLASSPATH="$LIBS/*"
 
-exec java -cp "$CLASSPATH" "$@"
+exec java -Drepo="$REPO" -cp "$CLASSPATH" "$@"
