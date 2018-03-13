@@ -18,6 +18,8 @@ public class FundingCli
 		{
 			DelegateExeOptions options = new DelegateExeOptions();
 			options.addCommand("list", RunList.OPTIONS_FACTORY, RunList.class);
+			options.addCommand("create-html", RunGenerateHtml.OPTIONS_FACTORY,
+					RunGenerateHtml.class);
 			return options;
 		}
 
