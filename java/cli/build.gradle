@@ -6,7 +6,7 @@ dependencies {
     compile 'de.topobyte:jsoup-elements:0.0.16'
     compile 'de.topobyte:jsoup-bootstrap:0.0.8'
     compile 'de.topobyte:jsoup-utils:0.0.1'
-    compile 'de.topobyte:melon-paths:0.0.1'
+    compile 'de.topobyte:melon-paths:0.0.2'
 }
 
 task copyJars(type: Copy) {
