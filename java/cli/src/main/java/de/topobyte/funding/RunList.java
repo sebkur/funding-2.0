@@ -17,8 +17,6 @@
 
 package de.topobyte.funding;
 
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.List;
 
 import org.apache.commons.cli.Options;
@@ -45,13 +43,9 @@ public class RunList
 	public static void main(String name, CommonsCliArguments arguments)
 			throws Exception
 	{
-		String repo = System.getProperty("repo");
-		Path pathRepo = Paths.get(repo);
-
 		System.out.println("Listing funding sources");
 
-		Path path = pathRepo.resolve("data/funding-sources.csv");
-		List<Entry> entries = Reader.read(path);
+		List<Entry> entries = Util.readFundingSources();
 		for (Entry entry : entries) {
 			System.out.println(String.format("funder: %s: %s",
 					entry.getFunder(), entry.getContact()));

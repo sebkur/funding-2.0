@@ -1,8 +1,6 @@
 
 package de.topobyte.funding;
 
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -31,19 +29,15 @@ public class RunFindStrangeCharacters
 	public static void main(String name, CommonsCliArguments arguments)
 			throws Exception
 	{
-		String repo = System.getProperty("repo");
-		Path pathRepo = Paths.get(repo);
-
 		System.out.println("Finding strange characters");
 
-		Path path = pathRepo.resolve("data/funding-sources.csv");
-		List<Entry> entries = Reader.read(path);
+		List<Entry> entries = Util.readFundingSources();
 
 		for (Entry entry : entries) {
 			specialChars(entry);
 		}
 
-		Writer.write(path, entries);
+		Util.writeFundingSources(entries);
 	}
 
 	private static void specialChars(Entry entry)

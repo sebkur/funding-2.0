@@ -17,8 +17,6 @@
 
 package de.topobyte.funding;
 
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -47,13 +45,9 @@ public class RunSort
 	public static void main(String name, CommonsCliArguments arguments)
 			throws Exception
 	{
-		String repo = System.getProperty("repo");
-		Path pathRepo = Paths.get(repo);
-
 		System.out.println("Listing funding sources");
 
-		Path path = pathRepo.resolve("data/funding-sources.csv");
-		List<Entry> entries = Reader.read(path);
+		List<Entry> entries = Util.readFundingSources();
 
 		Collections.sort(entries, new Comparator<Entry>() {
 
@@ -67,7 +61,7 @@ public class RunSort
 
 		});
 
-		Writer.write(path, entries);
+		Util.writeFundingSources(entries);
 	}
 
 }

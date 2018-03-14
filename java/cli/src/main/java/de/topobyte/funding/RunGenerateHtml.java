@@ -104,10 +104,7 @@ public class RunGenerateHtml
 			System.exit(1);
 		}
 
-		String repo = System.getProperty("repo");
-		Path pathRepo = Paths.get(repo);
-		Path path = pathRepo.resolve("data/funding-sources.csv");
-		List<Entry> entries = Reader.read(path);
+		List<Entry> entries = Util.readFundingSources();
 
 		Path pathIndex = pathOutput.resolve(FILENAME_INDEX);
 		createIndex(pathIndex, entries);

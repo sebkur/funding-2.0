@@ -17,8 +17,6 @@
 
 package de.topobyte.funding;
 
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.List;
 
 import org.apache.commons.cli.Options;
@@ -45,13 +43,9 @@ public class RunCleanupWhitespace
 	public static void main(String name, CommonsCliArguments arguments)
 			throws Exception
 	{
-		String repo = System.getProperty("repo");
-		Path pathRepo = Paths.get(repo);
-
 		System.out.println("Cleaning up whitespace");
 
-		Path path = pathRepo.resolve("data/funding-sources.csv");
-		List<Entry> entries = Reader.read(path);
+		List<Entry> entries = Util.readFundingSources();
 
 		for (Entry entry : entries) {
 			trimFunder(entry);
@@ -59,7 +53,7 @@ public class RunCleanupWhitespace
 			trimContact(entry);
 		}
 
-		Writer.write(path, entries);
+		Util.writeFundingSources(entries);
 	}
 
 	private static void trimFunder(Entry entry)
