@@ -30,6 +30,7 @@ public class RunGenerateHtml
 {
 
 	private static final String OPTION_OUTPUT = "output";
+	private static final String OPTION_FORCE = "force";
 
 	public static ExeOptionsFactory OPTIONS_FACTORY = new ExeOptionsFactory() {
 
@@ -39,6 +40,7 @@ public class RunGenerateHtml
 			Options options = new Options();
 			// @formatter:off
 			OptionHelper.addL(options, OPTION_OUTPUT, true, true, "file", "an output directory");
+			OptionHelper.add(options, "f", OPTION_FORCE, false, false, "file", "overwrite existing files");
 			// @formatter:on
 			return new CommonsCliExeOptions(options, "[options]");
 		}
@@ -53,6 +55,8 @@ public class RunGenerateHtml
 		String argOutput = line.getOptionValue(OPTION_OUTPUT);
 		Path pathOutput = Paths.get(argOutput);
 
+		boolean force = line.hasOption(OPTION_FORCE);
+
 		System.out.println("Generating HTML");
 		System.out.println("Output: " + pathOutput);
 
@@ -61,9 +65,11 @@ public class RunGenerateHtml
 			System.exit(1);
 		}
 		if (Files.exists(pathOutput) && !PathUtil.list(pathOutput).isEmpty()) {
-			System.out
-					.println("Specified output path exists, but is not empty");
-			System.exit(1);
+			if (!force) {
+				System.out.println(
+						"Specified output path exists, but is not empty");
+				System.exit(1);
+			}
 		}
 		if (!Files.exists(pathOutput)) {
 			Files.createDirectories(pathOutput);
