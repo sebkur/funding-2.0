@@ -55,6 +55,8 @@ public class RunCleanupWhitespace
 
 		for (Entry entry : entries) {
 			trimFunder(entry);
+			trimInfo(entry);
+			trimContact(entry);
 		}
 
 		Writer.write(path, entries);
@@ -62,10 +64,28 @@ public class RunCleanupWhitespace
 
 	private static void trimFunder(Entry entry)
 	{
-		String funder = entry.getFunder();
-		String funderTrimmed = funder.trim();
-		if (!funder.equals(funderTrimmed)) {
-			entry.setFunder(funderTrimmed);
+		String value = entry.getFunder();
+		String trimmed = value.trim();
+		if (!value.equals(trimmed)) {
+			entry.setFunder(trimmed);
+		}
+	}
+
+	private static void trimInfo(Entry entry)
+	{
+		String value = entry.getInfo();
+		String trimmed = value.trim();
+		if (!value.equals(trimmed)) {
+			entry.setInfo(trimmed);
+		}
+	}
+
+	private static void trimContact(Entry entry)
+	{
+		String value = entry.getContact();
+		String trimmed = value.trim();
+		if (!value.equals(trimmed)) {
+			entry.setContact(trimmed);
 		}
 	}
 
