@@ -43,6 +43,7 @@ public class FundingCli
 			options.addCommand("find-strange-characters",
 					RunFindStrangeCharacters.OPTIONS_FACTORY,
 					RunFindStrangeCharacters.class);
+			options.addCommand("sort", RunSort.OPTIONS_FACTORY, RunSort.class);
 			return options;
 		}
 
