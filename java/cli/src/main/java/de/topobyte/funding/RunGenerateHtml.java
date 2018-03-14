@@ -51,6 +51,8 @@ public class RunGenerateHtml
 
 	};
 
+	private static final String FILENAME_INDEX = "index.html";
+	private static final String FILENAME_ABOUT = "about.html";
 	private static final String FILENAME_STYLES = "style.css";
 
 	public static void main(String name, CommonsCliArguments arguments)
@@ -90,10 +92,10 @@ public class RunGenerateHtml
 		Path path = pathRepo.resolve("data/funding-sources.csv");
 		List<Entry> entries = Reader.read(path);
 
-		Path pathIndex = pathOutput.resolve("index.html");
+		Path pathIndex = pathOutput.resolve(FILENAME_INDEX);
 		createIndex(pathIndex, entries);
 
-		Path pathAbout = pathOutput.resolve("about.html");
+		Path pathAbout = pathOutput.resolve(FILENAME_ABOUT);
 		createAbout(pathAbout);
 
 		Path pathStyles = pathOutput.resolve(FILENAME_STYLES);
@@ -126,10 +128,10 @@ public class RunGenerateHtml
 		Menu menu = new Menu();
 		body.ac(menu);
 
-		A brand = HTML.a("index.html");
+		A brand = HTML.a(FILENAME_INDEX);
 		brand.appendText("Funding 2.0");
 
-		A link = HTML.a("about.html");
+		A link = HTML.a(FILENAME_ABOUT);
 		link.appendText("About");
 
 		menu.addBrand(brand);
