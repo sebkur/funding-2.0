@@ -40,6 +40,9 @@ public class FundingCli
 			options.addCommand("clean-up-whitespace",
 					RunCleanupWhitespace.OPTIONS_FACTORY,
 					RunCleanupWhitespace.class);
+			options.addCommand("find-strange-characters",
+					RunFindStrangeCharacters.OPTIONS_FACTORY,
+					RunFindStrangeCharacters.class);
 			return options;
 		}
 
