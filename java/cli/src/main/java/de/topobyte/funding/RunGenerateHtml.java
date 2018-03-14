@@ -84,7 +84,7 @@ public class RunGenerateHtml
 			content.ac(HTML.h1(entry.getFunder()));
 			content.appendText(entry.getInfo());
 			content.ac(HTML.br());
-			ElementUtil.appendFragment(content, entry.getContact());
+			ElementUtil.appendFragmentBody(content, entry.getContact());
 		}
 
 		htmlBuilder.write(pathOutput);
