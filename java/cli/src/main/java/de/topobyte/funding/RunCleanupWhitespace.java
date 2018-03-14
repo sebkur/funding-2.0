@@ -54,14 +54,19 @@ public class RunCleanupWhitespace
 		List<Entry> entries = Reader.read(path);
 
 		for (Entry entry : entries) {
-			String funder = entry.getFunder();
-			String funderTrimmed = funder.trim();
-			if (!funder.equals(funderTrimmed)) {
-				entry.setFunder(funderTrimmed);
-			}
+			trimFunder(entry);
 		}
 
 		Writer.write(path, entries);
+	}
+
+	private static void trimFunder(Entry entry)
+	{
+		String funder = entry.getFunder();
+		String funderTrimmed = funder.trim();
+		if (!funder.equals(funderTrimmed)) {
+			entry.setFunder(funderTrimmed);
+		}
 	}
 
 }
