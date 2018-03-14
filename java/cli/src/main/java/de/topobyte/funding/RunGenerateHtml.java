@@ -9,6 +9,10 @@ import java.util.List;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.Options;
 
+import de.topobyte.cssutils.CssFileWriter;
+import de.topobyte.cssutils.css.CssEntry;
+import de.topobyte.cssutils.css.CssFile;
+import de.topobyte.cssutils.css.Property;
 import de.topobyte.jsoup.Bootstrap;
 import de.topobyte.jsoup.Bootstrap3;
 import de.topobyte.jsoup.ElementUtil;
@@ -46,6 +50,8 @@ public class RunGenerateHtml
 		}
 
 	};
+
+	private static final String FILENAME_STYLES = "style.css";
 
 	public static void main(String name, CommonsCliArguments arguments)
 			throws Exception
@@ -89,6 +95,19 @@ public class RunGenerateHtml
 
 		Path pathAbout = pathOutput.resolve("about.html");
 		createAbout(pathAbout);
+
+		Path pathStyles = pathOutput.resolve(FILENAME_STYLES);
+		createCSS(pathStyles);
+	}
+
+	private static void createCSS(Path path) throws IOException
+	{
+		CssFile cssFile = new CssFile();
+		CssEntry a = new CssEntry("body");
+		a.addProperty(new Property("overflow-wrap", "break-word"));
+		cssFile.addEntry(a);
+
+		CssFileWriter.write(cssFile, path);
 	}
 
 	private static void setupHeader(HtmlBuilder htmlBuilder)
@@ -97,6 +116,9 @@ public class RunGenerateHtml
 		htmlBuilder.getTitle().appendText("Funding 2.0");
 
 		Bootstrap3.addCdnHeaders(head);
+
+		ElementUtil.appendFragmentHead(head,
+				"<link rel=\"stylesheet\" href=\"" + FILENAME_STYLES + "\">");
 	}
 
 	private static void addMenu(Element body)
