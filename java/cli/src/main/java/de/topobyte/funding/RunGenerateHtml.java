@@ -7,10 +7,14 @@ import java.util.List;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.Options;
 
+import de.topobyte.jsoup.Bootstrap;
+import de.topobyte.jsoup.Bootstrap3;
 import de.topobyte.jsoup.ElementUtil;
 import de.topobyte.jsoup.HTML;
 import de.topobyte.jsoup.HtmlBuilder;
-import de.topobyte.jsoup.components.Div;
+import de.topobyte.jsoup.components.A;
+import de.topobyte.jsoup.components.bootstrap3.Container;
+import de.topobyte.jsoup.components.bootstrap3.Menu;
 import de.topobyte.jsoup.nodes.Element;
 import de.topobyte.utilities.apache.commons.cli.OptionHelper;
 import de.topobyte.utilities.apache.commons.cli.commands.args.CommonsCliArguments;
@@ -52,9 +56,27 @@ public class RunGenerateHtml
 		Path pathRepo = Paths.get(repo);
 
 		HtmlBuilder htmlBuilder = new HtmlBuilder();
+
+		Element head = htmlBuilder.getHead();
+		htmlBuilder.getTitle().appendText("Funding 2.0");
+
+		Bootstrap3.addCdnHeaders(head);
+
 		Element body = htmlBuilder.getBody();
 
-		Div content = body.ac(new Div());
+		Menu menu = new Menu();
+		body.ac(menu);
+
+		A brand = HTML.a("");
+		brand.appendText("Funding");
+
+		A link = HTML.a("");
+		link.appendText("About");
+
+		menu.addBrand(brand);
+		menu.addMain(link, false);
+
+		Container content = body.ac(Bootstrap.container());
 
 		Path path = pathRepo.resolve("data/funding-sources.csv");
 		List<Entry> entries = Reader.read(path);
