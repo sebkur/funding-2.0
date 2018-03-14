@@ -37,6 +37,9 @@ public class FundingCli
 			options.addCommand("list", RunList.OPTIONS_FACTORY, RunList.class);
 			options.addCommand("create-html", RunGenerateHtml.OPTIONS_FACTORY,
 					RunGenerateHtml.class);
+			options.addCommand("clean-up-whitespace",
+					RunCleanupWhitespace.OPTIONS_FACTORY,
+					RunCleanupWhitespace.class);
 			return options;
 		}
 
