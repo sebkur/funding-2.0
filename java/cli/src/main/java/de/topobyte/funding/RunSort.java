@@ -45,7 +45,7 @@ public class RunSort
 	public static void main(String name, CommonsCliArguments arguments)
 			throws Exception
 	{
-		System.out.println("Listing funding sources");
+		System.out.println("Sorting funding sources");
 
 		List<Entry> entries = Util.readFundingSources();
 
