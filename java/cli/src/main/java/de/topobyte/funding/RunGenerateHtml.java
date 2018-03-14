@@ -105,7 +105,7 @@ public class RunGenerateHtml
 		body.ac(menu);
 
 		A brand = HTML.a("index.html");
-		brand.appendText("Funding");
+		brand.appendText("Funding 2.0");
 
 		A link = HTML.a("about.html");
 		link.appendText("About");
