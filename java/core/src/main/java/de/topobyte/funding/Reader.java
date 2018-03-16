@@ -22,6 +22,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -35,6 +36,7 @@ public class Reader
 	private static final String keyFunder = "Funder";
 	private static final String keyInfo = "Info";
 	private static final String keyContact = "Contact";
+	private static final String keyTags = "Tags";
 
 	public static List<Entry> read(Path path) throws IOException
 	{
@@ -53,7 +55,12 @@ public class Reader
 				String funder = map.get(keyFunder);
 				String info = map.get(keyInfo);
 				String contact = map.get(keyContact);
-				entries.add(new Entry(funder, info, contact));
+				String etags = map.get(keyTags);
+				List<String> tags = new ArrayList<>();
+				if (etags != null) {
+					tags.addAll(Arrays.asList(etags.split(",")));
+				}
+				entries.add(new Entry(funder, info, contact, tags));
 			}
 		} finally {
 			if (csvReader != null) {

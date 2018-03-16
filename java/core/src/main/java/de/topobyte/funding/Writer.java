@@ -35,10 +35,12 @@ public class Writer
 	private static final String keyFunder = "Funder";
 	private static final String keyInfo = "Info";
 	private static final String keyContact = "Contact";
+	private static final String keyTags = "Tags";
 
 	public static void write(Path path, List<Entry> entries) throws IOException
 	{
-		String header[] = new String[] { keyFunder, keyInfo, keyContact };
+		String header[] = new String[] { keyFunder, keyInfo, keyContact,
+				keyTags };
 		Map<String, String> map = new HashMap<>();
 
 		ICsvMapWriter mapWriter = null;

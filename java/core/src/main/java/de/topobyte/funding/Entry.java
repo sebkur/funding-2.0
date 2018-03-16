@@ -17,18 +17,22 @@
 
 package de.topobyte.funding;
 
+import java.util.List;
+
 public class Entry
 {
 
 	private String funder;
 	private String info;
 	private String contact;
+	private List<String> tags;
 
-	public Entry(String funder, String info, String contact)
+	public Entry(String funder, String info, String contact, List<String> tags)
 	{
 		this.funder = funder;
 		this.info = info;
 		this.contact = contact;
+		this.tags = tags;
 	}
 
 	public String getFunder()
@@ -59,6 +63,16 @@ public class Entry
 	public void setContact(String contact)
 	{
 		this.contact = contact;
+	}
+
+	public List<String> getTags()
+	{
+		return tags;
+	}
+
+	public void setTags(List<String> tags)
+	{
+		this.tags = tags;
 	}
 
 }
