@@ -6,3 +6,8 @@ The initial data has been imported from a repository that the
 provided in a [repository](https://github.com/renewablefreedom/funding-sources)
 which contains the data visible on their [list of alternative funding
 sources](https://renewablefreedom.org/grants/alternative-funding-sources).
+
+# Data
+
+The data in this repository is located in a CSV file here:
+[data/funding-sources.csv](data/funding-sources.csv)
