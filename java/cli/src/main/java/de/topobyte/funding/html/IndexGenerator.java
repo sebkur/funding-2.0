@@ -2,6 +2,7 @@ package de.topobyte.funding.html;
 
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.Arrays;
 import java.util.List;
 
 import de.topobyte.funding.Entry;
@@ -38,7 +39,10 @@ public class IndexGenerator extends BaseGenerator
 			ElementUtil.appendFragmentBody(content, entry.getContact());
 			List<String> tags = entry.getTags();
 			if (!tags.isEmpty()) {
-				appendTags(webPath, content, tags);
+				appendTags(webPath, content, tags, Type.PRIMARY);
+			} else {
+				appendTags(webPath, content, Arrays.asList(Site.TAG_UNTAGGED),
+						Type.WARNING);
 			}
 		}
 
@@ -46,7 +50,7 @@ public class IndexGenerator extends BaseGenerator
 	}
 
 	private void appendTags(WebPath webPath, Container content,
-			List<String> tags)
+			List<String> tags, Type type)
 	{
 		P p = content.ac(HTML.p());
 		p.attr("style", "padding-top:0.5em");
@@ -54,7 +58,7 @@ public class IndexGenerator extends BaseGenerator
 			WebPath path = Site.pathTag(tag);
 			WebPath relative = webPath.relativize(path);
 			A link = HTML.a(relative.toString());
-			Label label = link.ac(Bootstrap.label(Type.PRIMARY));
+			Label label = link.ac(Bootstrap.label(type));
 			label.appendText(tag);
 			p.ac(link);
 		}

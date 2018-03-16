@@ -122,6 +122,14 @@ public class RunGenerateHtml
 			IndexGenerator tagIndexGernator = new IndexGenerator();
 			tagIndexGernator.create(path, webPath, withTag);
 		}
+
+		List<Entry> untagged = collectUntagged(entries);
+
+		WebPath webPath = Site.pathTag(Site.TAG_UNTAGGED);
+		Path path = NioPaths.resolve(pathOutput, webPath);
+
+		IndexGenerator tagIndexGernator = new IndexGenerator();
+		tagIndexGernator.create(path, webPath, untagged);
 	}
 
 	private static Set<String> collectTags(List<Entry> entries)
@@ -138,6 +146,17 @@ public class RunGenerateHtml
 		List<Entry> filtered = new ArrayList<>();
 		for (Entry entry : entries) {
 			if (entry.getTags().contains(tag)) {
+				filtered.add(entry);
+			}
+		}
+		return filtered;
+	}
+
+	private static List<Entry> collectUntagged(List<Entry> entries)
+	{
+		List<Entry> filtered = new ArrayList<>();
+		for (Entry entry : entries) {
+			if (entry.getTags().isEmpty()) {
 				filtered.add(entry);
 			}
 		}
