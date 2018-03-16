@@ -23,3 +23,13 @@ The `Tags` column contains a comma-separated list of tags/keywords.
 The `Contact` column is interpreted as HTML, so links can be encoded here.
 In a future version, we're probably going to move away from CSV as a means
 of storage and support multiple and different types of contact options.
+
+# Processing
+
+There's a Java project contained in this repository, that can be used
+for various tasks. It ships with a command line interface (CLI)
+for generating the static website and running a number of data manipulation
+tasks such as sorting the entries alphabetically or cleaning up whitespace.
+
+More information on this is available in the accompanying
+[README file](java/README.md).
