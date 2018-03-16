@@ -15,7 +15,7 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with funding-2.0. If not, see <http://www.gnu.org/licenses/>.
 
-package de.topobyte.funding;
+package de.topobyte.funding.html;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -33,6 +33,8 @@ import de.topobyte.cssutils.CssFileWriter;
 import de.topobyte.cssutils.css.CssEntry;
 import de.topobyte.cssutils.css.CssFile;
 import de.topobyte.cssutils.css.Property;
+import de.topobyte.funding.Entry;
+import de.topobyte.funding.Util;
 import de.topobyte.jsoup.Bootstrap;
 import de.topobyte.jsoup.Bootstrap3;
 import de.topobyte.jsoup.ElementUtil;

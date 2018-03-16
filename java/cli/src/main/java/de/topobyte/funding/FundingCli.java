@@ -17,6 +17,7 @@
 
 package de.topobyte.funding;
 
+import de.topobyte.funding.html.RunGenerateHtml;
 import de.topobyte.utilities.apache.commons.cli.commands.ArgumentParser;
 import de.topobyte.utilities.apache.commons.cli.commands.ExeRunner;
 import de.topobyte.utilities.apache.commons.cli.commands.ExecutionData;
