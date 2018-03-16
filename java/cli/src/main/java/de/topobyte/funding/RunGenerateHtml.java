@@ -38,6 +38,8 @@ import de.topobyte.jsoup.HtmlBuilder;
 import de.topobyte.jsoup.components.A;
 import de.topobyte.jsoup.components.P;
 import de.topobyte.jsoup.components.bootstrap3.Container;
+import de.topobyte.jsoup.components.bootstrap3.Label;
+import de.topobyte.jsoup.components.bootstrap3.Label.Type;
 import de.topobyte.jsoup.components.bootstrap3.Menu;
 import de.topobyte.jsoup.nodes.Element;
 import de.topobyte.melon.paths.PathUtil;
@@ -168,9 +170,24 @@ public class RunGenerateHtml
 			content.appendText(entry.getInfo());
 			content.ac(HTML.br());
 			ElementUtil.appendFragmentBody(content, entry.getContact());
+			List<String> tags = entry.getTags();
+			if (!tags.isEmpty()) {
+				appendTags(content, tags);
+			}
 		}
 
 		htmlBuilder.write(path);
+	}
+
+	private static void appendTags(Container content, List<String> tags)
+	{
+		P p = content.ac(HTML.p());
+		p.attr("style", "padding-top:0.5em");
+		for (String tag : tags) {
+			Label label = Bootstrap.label(Type.PRIMARY);
+			label.appendText(tag);
+			p.ac(label);
+		}
 	}
 
 	private static void createAbout(Path path) throws IOException
