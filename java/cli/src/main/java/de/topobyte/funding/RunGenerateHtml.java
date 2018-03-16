@@ -184,9 +184,10 @@ public class RunGenerateHtml
 		P p = content.ac(HTML.p());
 		p.attr("style", "padding-top:0.5em");
 		for (String tag : tags) {
-			Label label = Bootstrap.label(Type.PRIMARY);
+			A link = HTML.a(String.format("tags/%s.html", tag));
+			Label label = link.ac(Bootstrap.label(Type.PRIMARY));
 			label.appendText(tag);
-			p.ac(label);
+			p.ac(link);
 		}
 	}
 
