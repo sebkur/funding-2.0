@@ -51,6 +51,9 @@ import de.topobyte.utilities.apache.commons.cli.commands.args.CommonsCliArgument
 import de.topobyte.utilities.apache.commons.cli.commands.options.CommonsCliExeOptions;
 import de.topobyte.utilities.apache.commons.cli.commands.options.ExeOptions;
 import de.topobyte.utilities.apache.commons.cli.commands.options.ExeOptionsFactory;
+import de.topobyte.webpaths.NioPaths;
+import de.topobyte.webpaths.WebPath;
+import de.topobyte.webpaths.WebPaths;
 
 public class RunGenerateHtml
 {
@@ -73,10 +76,15 @@ public class RunGenerateHtml
 
 	};
 
-	private static final String FILENAME_INDEX = "index.html";
-	private static final String FILENAME_ABOUT = "about.html";
-	private static final String FILENAME_STYLES = "style.css";
-	private static final String DIRNAME_TAGS = "tags";
+	private static final WebPath PATH_INDEX = WebPaths.get("index.html");
+	private static final WebPath PATH_ABOUT = WebPaths.get("about.html");
+	private static final WebPath PATH_STYLES = WebPaths.get("style.css");
+	private static final WebPath PATH_TAGS = WebPaths.get("tags/");
+
+	private static WebPath pathTag(String tag)
+	{
+		return PATH_TAGS.resolve(String.format("%s.html", tag));
+	}
 
 	public static void main(String name, CommonsCliArguments arguments)
 			throws Exception
@@ -112,23 +120,24 @@ public class RunGenerateHtml
 
 		List<Entry> entries = Util.readFundingSources();
 
-		Path pathIndex = pathOutput.resolve(FILENAME_INDEX);
-		createIndex(pathIndex, entries);
+		Path pathIndex = NioPaths.resolve(pathOutput, PATH_INDEX);
+		createIndex(pathIndex, PATH_INDEX, entries);
 
-		Path pathAbout = pathOutput.resolve(FILENAME_ABOUT);
-		createAbout(pathAbout);
+		Path pathAbout = NioPaths.resolve(pathOutput, PATH_ABOUT);
+		createAbout(pathAbout, PATH_ABOUT);
 
-		Path pathStyles = pathOutput.resolve(FILENAME_STYLES);
+		Path pathStyles = NioPaths.resolve(pathOutput, PATH_STYLES);
 		createCSS(pathStyles);
 
-		Path pathTags = pathOutput.resolve(DIRNAME_TAGS);
+		Path pathTags = NioPaths.resolve(pathOutput, PATH_TAGS);
 		Files.createDirectories(pathTags);
 
 		Set<String> tags = collectTags(entries);
 		for (String tag : tags) {
+			WebPath webPath = pathTag(tag);
 			List<Entry> withTag = filter(entries, tag);
-			Path path = pathTags.resolve(String.format("%s.html", tag));
-			createIndex(path, withTag);
+			Path path = NioPaths.resolve(pathOutput, webPath);
+			createIndex(path, webPath, withTag);
 		}
 	}
 
@@ -170,32 +179,32 @@ public class RunGenerateHtml
 		Bootstrap3.addCdnHeaders(head);
 
 		ElementUtil.appendFragmentHead(head,
-				"<link rel=\"stylesheet\" href=\"" + FILENAME_STYLES + "\">");
+				"<link rel=\"stylesheet\" href=\"" + PATH_STYLES + "\">");
 	}
 
-	private static void addMenu(Element body)
+	private static void addMenu(WebPath webPath, Element body)
 	{
 		Menu menu = new Menu();
 		body.ac(menu);
 
-		A brand = HTML.a(FILENAME_INDEX);
+		A brand = HTML.a(webPath.relativize(PATH_INDEX).toString());
 		brand.appendText("Funding 2.0");
 
-		A link = HTML.a(FILENAME_ABOUT);
+		A link = HTML.a(webPath.relativize(PATH_ABOUT).toString());
 		link.appendText("About");
 
 		menu.addBrand(brand);
 		menu.addMain(link, false);
 	}
 
-	private static void createIndex(Path path, List<Entry> entries)
-			throws IOException
+	private static void createIndex(Path path, WebPath webPath,
+			List<Entry> entries) throws IOException
 	{
 		HtmlBuilder htmlBuilder = new HtmlBuilder();
 		setupHeader(htmlBuilder);
 
 		Element body = htmlBuilder.getBody();
-		addMenu(body);
+		addMenu(webPath, body);
 
 		Container content = body.ac(Bootstrap.container());
 
@@ -206,32 +215,36 @@ public class RunGenerateHtml
 			ElementUtil.appendFragmentBody(content, entry.getContact());
 			List<String> tags = entry.getTags();
 			if (!tags.isEmpty()) {
-				appendTags(content, tags);
+				appendTags(webPath, content, tags);
 			}
 		}
 
 		htmlBuilder.write(path);
 	}
 
-	private static void appendTags(Container content, List<String> tags)
+	private static void appendTags(WebPath webPath, Container content,
+			List<String> tags)
 	{
 		P p = content.ac(HTML.p());
 		p.attr("style", "padding-top:0.5em");
 		for (String tag : tags) {
-			A link = HTML.a(String.format("%s/%s.html", DIRNAME_TAGS, tag));
+			WebPath path = pathTag(tag);
+			WebPath relative = webPath.relativize(path);
+			A link = HTML.a(relative.toString());
 			Label label = link.ac(Bootstrap.label(Type.PRIMARY));
 			label.appendText(tag);
 			p.ac(link);
 		}
 	}
 
-	private static void createAbout(Path path) throws IOException
+	private static void createAbout(Path path, WebPath webPath)
+			throws IOException
 	{
 		HtmlBuilder htmlBuilder = new HtmlBuilder();
 		setupHeader(htmlBuilder);
 
 		Element body = htmlBuilder.getBody();
-		addMenu(body);
+		addMenu(webPath, body);
 
 		Container content = body.ac(Bootstrap.container());
 
