@@ -107,11 +107,15 @@ public class RunGenerateHtml
 		Path pathAbout = NioPaths.resolve(pathOutput, Site.PATH_ABOUT);
 		aboutGenerator.create(pathAbout, Site.PATH_ABOUT);
 
+		TagsGenerator tagsGenerator = new TagsGenerator();
+		Path pathTags = NioPaths.resolve(pathOutput, Site.PATH_TAGS);
+		tagsGenerator.create(pathTags, Site.PATH_TAGS, entries);
+
 		Path pathStyles = NioPaths.resolve(pathOutput, Site.PATH_STYLES);
 		createCSS(pathStyles);
 
-		Path pathTags = NioPaths.resolve(pathOutput, Site.PATH_TAGS);
-		Files.createDirectories(pathTags);
+		Path dirTags = NioPaths.resolve(pathOutput, Site.DIR_TAGS);
+		Files.createDirectories(dirTags);
 
 		Set<String> tags = collectTags(entries);
 		for (String tag : tags) {

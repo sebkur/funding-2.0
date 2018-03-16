@@ -31,11 +31,15 @@ public class BaseGenerator
 		A brand = HTML.a(webPath.relativize(Site.PATH_INDEX).toString());
 		brand.appendText("Funding 2.0");
 
-		A link = HTML.a(webPath.relativize(Site.PATH_ABOUT).toString());
-		link.appendText("About");
+		A tags = HTML.a(webPath.relativize(Site.PATH_TAGS).toString());
+		tags.appendText("Tags");
+
+		A about = HTML.a(webPath.relativize(Site.PATH_ABOUT).toString());
+		about.appendText("About");
 
 		menu.addBrand(brand);
-		menu.addMain(link, false);
+		menu.addMain(tags, false);
+		menu.addMain(about, false);
 	}
 
 }
