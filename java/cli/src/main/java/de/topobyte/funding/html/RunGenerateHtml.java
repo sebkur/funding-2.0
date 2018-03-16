@@ -35,18 +35,6 @@ import de.topobyte.cssutils.css.CssFile;
 import de.topobyte.cssutils.css.Property;
 import de.topobyte.funding.Entry;
 import de.topobyte.funding.Util;
-import de.topobyte.jsoup.Bootstrap;
-import de.topobyte.jsoup.Bootstrap3;
-import de.topobyte.jsoup.ElementUtil;
-import de.topobyte.jsoup.HTML;
-import de.topobyte.jsoup.HtmlBuilder;
-import de.topobyte.jsoup.components.A;
-import de.topobyte.jsoup.components.P;
-import de.topobyte.jsoup.components.bootstrap3.Container;
-import de.topobyte.jsoup.components.bootstrap3.Label;
-import de.topobyte.jsoup.components.bootstrap3.Label.Type;
-import de.topobyte.jsoup.components.bootstrap3.Menu;
-import de.topobyte.jsoup.nodes.Element;
 import de.topobyte.melon.paths.PathUtil;
 import de.topobyte.utilities.apache.commons.cli.OptionHelper;
 import de.topobyte.utilities.apache.commons.cli.commands.args.CommonsCliArguments;
@@ -55,7 +43,6 @@ import de.topobyte.utilities.apache.commons.cli.commands.options.ExeOptions;
 import de.topobyte.utilities.apache.commons.cli.commands.options.ExeOptionsFactory;
 import de.topobyte.webpaths.NioPaths;
 import de.topobyte.webpaths.WebPath;
-import de.topobyte.webpaths.WebPaths;
 
 public class RunGenerateHtml
 {
@@ -77,16 +64,6 @@ public class RunGenerateHtml
 		}
 
 	};
-
-	private static final WebPath PATH_INDEX = WebPaths.get("index.html");
-	private static final WebPath PATH_ABOUT = WebPaths.get("about.html");
-	private static final WebPath PATH_STYLES = WebPaths.get("style.css");
-	private static final WebPath PATH_TAGS = WebPaths.get("tags/");
-
-	private static WebPath pathTag(String tag)
-	{
-		return PATH_TAGS.resolve(String.format("%s.html", tag));
-	}
 
 	public static void main(String name, CommonsCliArguments arguments)
 			throws Exception
@@ -122,24 +99,28 @@ public class RunGenerateHtml
 
 		List<Entry> entries = Util.readFundingSources();
 
-		Path pathIndex = NioPaths.resolve(pathOutput, PATH_INDEX);
-		createIndex(pathIndex, PATH_INDEX, entries);
+		IndexGenerator indexGenerator = new IndexGenerator();
+		Path pathIndex = NioPaths.resolve(pathOutput, Site.PATH_INDEX);
+		indexGenerator.create(pathIndex, Site.PATH_INDEX, entries);
 
-		Path pathAbout = NioPaths.resolve(pathOutput, PATH_ABOUT);
-		createAbout(pathAbout, PATH_ABOUT);
+		AboutGenerator aboutGenerator = new AboutGenerator();
+		Path pathAbout = NioPaths.resolve(pathOutput, Site.PATH_ABOUT);
+		aboutGenerator.create(pathAbout, Site.PATH_ABOUT);
 
-		Path pathStyles = NioPaths.resolve(pathOutput, PATH_STYLES);
+		Path pathStyles = NioPaths.resolve(pathOutput, Site.PATH_STYLES);
 		createCSS(pathStyles);
 
-		Path pathTags = NioPaths.resolve(pathOutput, PATH_TAGS);
+		Path pathTags = NioPaths.resolve(pathOutput, Site.PATH_TAGS);
 		Files.createDirectories(pathTags);
 
 		Set<String> tags = collectTags(entries);
 		for (String tag : tags) {
-			WebPath webPath = pathTag(tag);
+			WebPath webPath = Site.pathTag(tag);
 			List<Entry> withTag = filter(entries, tag);
 			Path path = NioPaths.resolve(pathOutput, webPath);
-			createIndex(path, webPath, withTag);
+
+			IndexGenerator tagIndexGernator = new IndexGenerator();
+			tagIndexGernator.create(path, webPath, withTag);
 		}
 	}
 
@@ -171,109 +152,6 @@ public class RunGenerateHtml
 		cssFile.addEntry(a);
 
 		CssFileWriter.write(cssFile, path);
-	}
-
-	private static void setupHeader(HtmlBuilder htmlBuilder)
-	{
-		Element head = htmlBuilder.getHead();
-		htmlBuilder.getTitle().appendText("Funding 2.0");
-
-		Bootstrap3.addCdnHeaders(head);
-
-		ElementUtil.appendFragmentHead(head,
-				"<link rel=\"stylesheet\" href=\"" + PATH_STYLES + "\">");
-	}
-
-	private static void addMenu(WebPath webPath, Element body)
-	{
-		Menu menu = new Menu();
-		body.ac(menu);
-
-		A brand = HTML.a(webPath.relativize(PATH_INDEX).toString());
-		brand.appendText("Funding 2.0");
-
-		A link = HTML.a(webPath.relativize(PATH_ABOUT).toString());
-		link.appendText("About");
-
-		menu.addBrand(brand);
-		menu.addMain(link, false);
-	}
-
-	private static void createIndex(Path path, WebPath webPath,
-			List<Entry> entries) throws IOException
-	{
-		HtmlBuilder htmlBuilder = new HtmlBuilder();
-		setupHeader(htmlBuilder);
-
-		Element body = htmlBuilder.getBody();
-		addMenu(webPath, body);
-
-		Container content = body.ac(Bootstrap.container());
-
-		for (Entry entry : entries) {
-			content.ac(HTML.h1(entry.getFunder()));
-			content.appendText(entry.getInfo());
-			content.ac(HTML.br());
-			ElementUtil.appendFragmentBody(content, entry.getContact());
-			List<String> tags = entry.getTags();
-			if (!tags.isEmpty()) {
-				appendTags(webPath, content, tags);
-			}
-		}
-
-		htmlBuilder.write(path);
-	}
-
-	private static void appendTags(WebPath webPath, Container content,
-			List<String> tags)
-	{
-		P p = content.ac(HTML.p());
-		p.attr("style", "padding-top:0.5em");
-		for (String tag : tags) {
-			WebPath path = pathTag(tag);
-			WebPath relative = webPath.relativize(path);
-			A link = HTML.a(relative.toString());
-			Label label = link.ac(Bootstrap.label(Type.PRIMARY));
-			label.appendText(tag);
-			p.ac(link);
-		}
-	}
-
-	private static void createAbout(Path path, WebPath webPath)
-			throws IOException
-	{
-		HtmlBuilder htmlBuilder = new HtmlBuilder();
-		setupHeader(htmlBuilder);
-
-		Element body = htmlBuilder.getBody();
-		addMenu(webPath, body);
-
-		Container content = body.ac(Bootstrap.container());
-
-		content.ac(HTML.h1("Funding 2.0"));
-
-		P p = content.ac(HTML.p());
-		p.appendText(
-				"A crowd-sourced database of alternative funding sources.");
-
-		p = content.ac(HTML.p());
-		p.appendText("Contribute to this collection on GitHub: ");
-		p.ac(HTML.a("https://github.com/sebkur/funding-2.0",
-				"sebkur/funding-2.0"));
-		p.appendText(".");
-
-		content.ac(HTML.h2("Credits"));
-		p = content.ac(HTML.p());
-
-		p.appendText("This project is based on a data set provided by the ");
-		p.ac(HTML.a("https://renewablefreedom.org/",
-				"Renewable Freedom Foundation"));
-		p.appendText(" that is available on GitHub: ");
-		p.ac(HTML.a("https://github.com/renewablefreedom/funding-sources",
-				"renewablefreedom/funding-sources"));
-		p.appendText(".");
-
-		htmlBuilder.write(path);
 	}
 
 }
