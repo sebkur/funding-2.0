@@ -21,7 +21,10 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.Options;
@@ -73,6 +76,7 @@ public class RunGenerateHtml
 	private static final String FILENAME_INDEX = "index.html";
 	private static final String FILENAME_ABOUT = "about.html";
 	private static final String FILENAME_STYLES = "style.css";
+	private static final String DIRNAME_TAGS = "tags";
 
 	public static void main(String name, CommonsCliArguments arguments)
 			throws Exception
@@ -116,6 +120,36 @@ public class RunGenerateHtml
 
 		Path pathStyles = pathOutput.resolve(FILENAME_STYLES);
 		createCSS(pathStyles);
+
+		Path pathTags = pathOutput.resolve(DIRNAME_TAGS);
+		Files.createDirectories(pathTags);
+
+		Set<String> tags = collectTags(entries);
+		for (String tag : tags) {
+			List<Entry> withTag = filter(entries, tag);
+			Path path = pathTags.resolve(String.format("%s.html", tag));
+			createIndex(path, withTag);
+		}
+	}
+
+	private static Set<String> collectTags(List<Entry> entries)
+	{
+		Set<String> allTags = new HashSet<>();
+		for (Entry entry : entries) {
+			allTags.addAll(entry.getTags());
+		}
+		return allTags;
+	}
+
+	private static List<Entry> filter(List<Entry> entries, String tag)
+	{
+		List<Entry> filtered = new ArrayList<>();
+		for (Entry entry : entries) {
+			if (entry.getTags().contains(tag)) {
+				filtered.add(entry);
+			}
+		}
+		return filtered;
 	}
 
 	private static void createCSS(Path path) throws IOException
@@ -184,7 +218,7 @@ public class RunGenerateHtml
 		P p = content.ac(HTML.p());
 		p.attr("style", "padding-top:0.5em");
 		for (String tag : tags) {
-			A link = HTML.a(String.format("tags/%s.html", tag));
+			A link = HTML.a(String.format("%s/%s.html", DIRNAME_TAGS, tag));
 			Label label = link.ac(Bootstrap.label(Type.PRIMARY));
 			label.appendText(tag);
 			p.ac(link);
