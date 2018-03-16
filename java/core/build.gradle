@@ -5,6 +5,7 @@ if (project.hasProperty("topobyte")) {
 
 dependencies {
     compile 'net.sf.supercsv:super-csv:2.4.0'
+    compile 'com.google.guava:guava:19.0'
 
     testCompile 'de.topobyte:system-utils:0.0.1'
 }

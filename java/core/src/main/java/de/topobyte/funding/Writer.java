@@ -29,6 +29,8 @@ import org.supercsv.io.CsvMapWriter;
 import org.supercsv.io.ICsvMapWriter;
 import org.supercsv.prefs.CsvPreference;
 
+import com.google.common.base.Joiner;
+
 public class Writer
 {
 
@@ -55,6 +57,7 @@ public class Writer
 				map.put(keyFunder, entry.getFunder());
 				map.put(keyInfo, entry.getInfo());
 				map.put(keyContact, entry.getContact());
+				map.put(keyTags, Joiner.on(",").join(entry.getTags()));
 				mapWriter.write(map, header);
 			}
 		} finally {
