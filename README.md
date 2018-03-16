@@ -1,5 +1,6 @@
 This is a project for collecting and processing information about funding
-sources.
+sources. A rendered version of the data set is available here:
+<https://sebkur.github.io/funding-2.0/>.
 
 The initial data has been imported from a repository that the
 [Renewable Freedom Foundation](https://renewablefreedom.org) has
