@@ -18,10 +18,10 @@ import de.topobyte.jsoup.components.bootstrap3.Label.Type;
 import de.topobyte.jsoup.nodes.Element;
 import de.topobyte.webpaths.WebPath;
 
-public class IndexGenerator extends BaseGenerator
+public class EntryGenerator extends BaseGenerator
 {
 
-	public void create(Path path, WebPath webPath, List<Entry> entries)
+	public void create(Path path, WebPath webPath, Entry entry)
 			throws IOException
 	{
 		HtmlBuilder htmlBuilder = new HtmlBuilder();
@@ -32,20 +32,16 @@ public class IndexGenerator extends BaseGenerator
 
 		Container content = body.ac(Bootstrap.container());
 
-		for (Entry entry : entries) {
-			A link = content.ac(HTML
-					.a(webPath.relativize(Site.pathEntry(entry)).toString()));
-			link.ac(HTML.h1(entry.getFunder()));
-			content.appendText(entry.getInfo());
-			content.ac(HTML.br());
-			ElementUtil.appendFragmentBody(content, entry.getContact());
-			List<String> tags = entry.getTags();
-			if (!tags.isEmpty()) {
-				appendTags(webPath, content, tags, Type.PRIMARY);
-			} else {
-				appendTags(webPath, content, Arrays.asList(Site.TAG_UNTAGGED),
-						Type.WARNING);
-			}
+		content.ac(HTML.h1(entry.getFunder()));
+		content.appendText(entry.getInfo());
+		content.ac(HTML.br());
+		ElementUtil.appendFragmentBody(content, entry.getContact());
+		List<String> tags = entry.getTags();
+		if (!tags.isEmpty()) {
+			appendTags(webPath, content, tags, Type.PRIMARY);
+		} else {
+			appendTags(webPath, content, Arrays.asList(Site.TAG_UNTAGGED),
+					Type.WARNING);
 		}
 
 		htmlBuilder.write(path);

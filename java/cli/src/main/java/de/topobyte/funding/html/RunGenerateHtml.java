@@ -56,7 +56,7 @@ public class RunGenerateHtml
 		public ExeOptions createOptions()
 		{
 			Options options = new Options();
-			// @formatter:off
+	// @formatter:off
 			OptionHelper.addL(options, OPTION_OUTPUT, true, true, "file", "an output directory");
 			OptionHelper.add(options, "f", OPTION_FORCE, false, false, "file", "overwrite existing files");
 			// @formatter:on
@@ -127,13 +127,25 @@ public class RunGenerateHtml
 			tagIndexGernator.create(path, webPath, withTag);
 		}
 
-		List<Entry> untagged = collectUntagged(entries);
+		{
+			List<Entry> untagged = collectUntagged(entries);
 
-		WebPath webPath = Site.pathTag(Site.TAG_UNTAGGED);
-		Path path = NioPaths.resolve(pathOutput, webPath);
+			WebPath webPath = Site.pathTag(Site.TAG_UNTAGGED);
+			Path path = NioPaths.resolve(pathOutput, webPath);
 
-		IndexGenerator tagIndexGernator = new IndexGenerator();
-		tagIndexGernator.create(path, webPath, untagged);
+			IndexGenerator tagIndexGernator = new IndexGenerator();
+			tagIndexGernator.create(path, webPath, untagged);
+		}
+
+		Path dirEntries = NioPaths.resolve(pathOutput, Site.DIR_ENTRIES);
+		Files.createDirectories(dirEntries);
+
+		for (Entry entry : entries) {
+			WebPath webPath = Site.pathEntry(entry);
+			Path path = NioPaths.resolve(pathOutput, webPath);
+			EntryGenerator entryGenerator = new EntryGenerator();
+			entryGenerator.create(path, webPath, entry);
+		}
 	}
 
 	private static Set<String> collectTags(List<Entry> entries)
