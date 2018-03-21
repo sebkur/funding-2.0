@@ -1,6 +1,7 @@
 package de.topobyte.funding.html;
 
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
 
 import de.topobyte.jsoup.Bootstrap;
@@ -31,13 +32,18 @@ public class SiteFragments
 	{
 		P p = content.ac(HTML.p());
 		p.attr("style", "padding-top:0.5em");
-		for (String tag : tags) {
+		Iterator<String> iterator = tags.iterator();
+		while (iterator.hasNext()) {
+			String tag = iterator.next();
 			WebPath path = Site.pathTag(tag);
 			WebPath relative = webPath.relativize(path);
 			A link = HTML.a(relative.toString());
 			Label label = link.ac(Bootstrap.label(type));
 			label.appendText(tag);
 			p.ac(link);
+			if (iterator.hasNext()) {
+				p.appendText(" ");
+			}
 		}
 	}
 
