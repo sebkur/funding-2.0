@@ -17,7 +17,7 @@ public class AboutGenerator extends BaseGenerator
 	public void create(Path path, WebPath webPath) throws IOException
 	{
 		HtmlBuilder htmlBuilder = new HtmlBuilder();
-		setupHeader(htmlBuilder);
+		setupHeader(webPath, htmlBuilder);
 
 		Element body = htmlBuilder.getBody();
 		addMenu(webPath, body);

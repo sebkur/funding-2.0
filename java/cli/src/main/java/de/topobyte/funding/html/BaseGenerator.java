@@ -12,15 +12,15 @@ import de.topobyte.webpaths.WebPath;
 public class BaseGenerator
 {
 
-	protected void setupHeader(HtmlBuilder htmlBuilder)
+	protected void setupHeader(WebPath webPath, HtmlBuilder htmlBuilder)
 	{
 		Element head = htmlBuilder.getHead();
 		htmlBuilder.getTitle().appendText("Funding 2.0");
 
 		Bootstrap3.addCdnHeaders(head);
 
-		ElementUtil.appendFragmentHead(head,
-				"<link rel=\"stylesheet\" href=\"" + Site.PATH_STYLES + "\">");
+		ElementUtil.appendFragmentHead(head, "<link rel=\"stylesheet\" href=\""
+				+ webPath.relativize(Site.PATH_STYLES).toString() + "\">");
 	}
 
 	protected void addMenu(WebPath webPath, Element body)

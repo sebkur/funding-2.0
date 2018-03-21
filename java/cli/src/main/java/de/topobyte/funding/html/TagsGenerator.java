@@ -26,7 +26,7 @@ public class TagsGenerator extends BaseGenerator
 			throws IOException
 	{
 		HtmlBuilder htmlBuilder = new HtmlBuilder();
-		setupHeader(htmlBuilder);
+		setupHeader(webPath, htmlBuilder);
 
 		Element body = htmlBuilder.getBody();
 		addMenu(webPath, body);
