@@ -31,8 +31,8 @@ import com.google.common.collect.Multiset;
 
 import de.topobyte.collections.util.ListUtil;
 import de.topobyte.funding.Entry;
+import de.topobyte.funding.TestUtil;
 import de.topobyte.funding.Util;
-import de.topobyte.system.utils.SystemPaths;
 
 public class TagCountriesByTLD
 {
@@ -40,8 +40,7 @@ public class TagCountriesByTLD
 	public static void main(String[] args) throws Exception
 	{
 		System.out.println("Tagging funding sources by TLD");
-		System.setProperty("repo",
-				SystemPaths.CWD.getParent().getParent().toString());
+		TestUtil.prepare();
 
 		List<Entry> entries = Util.readFundingSources();
 

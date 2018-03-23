@@ -15,39 +15,17 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with funding-2.0. If not, see <http://www.gnu.org/licenses/>.
 
-package de.topobyte.funding.tagging;
+package de.topobyte.funding;
 
-import java.util.List;
+import de.topobyte.system.utils.SystemPaths;
 
-import de.topobyte.funding.Entry;
-import de.topobyte.funding.TestUtil;
-import de.topobyte.funding.Util;
-
-public class TagGermany
+public class TestUtil
 {
 
-	public static void main(String[] args) throws Exception
+	public static void prepare()
 	{
-		System.out.println("Tagging funding sources: germany");
-		TestUtil.prepare();
-
-		List<Entry> entries = Util.readFundingSources();
-
-		for (Entry entry : entries) {
-			String funder = entry.getFunder();
-			if (funder.toLowerCase().contains("stiftung")) {
-				addTag(entry, "germany");
-			}
-		}
-
-		Util.writeFundingSources(entries);
-	}
-
-	private static void addTag(Entry entry, String tag)
-	{
-		if (!entry.getTags().contains(tag)) {
-			entry.getTags().add(tag);
-		}
+		System.setProperty("repo",
+				SystemPaths.CWD.getParent().getParent().toString());
 	}
 
 }

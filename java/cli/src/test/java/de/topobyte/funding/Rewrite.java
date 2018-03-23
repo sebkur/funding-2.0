@@ -19,16 +19,13 @@ package de.topobyte.funding;
 
 import java.util.List;
 
-import de.topobyte.system.utils.SystemPaths;
-
 public class Rewrite
 {
 
 	public static void main(String[] args) throws Exception
 	{
 		System.out.println("Rewriting funding sources");
-		System.setProperty("repo",
-				SystemPaths.CWD.getParent().getParent().toString());
+		TestUtil.prepare();
 
 		List<Entry> entries = Util.readFundingSources();
 

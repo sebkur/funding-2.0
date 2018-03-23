@@ -24,16 +24,13 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-import de.topobyte.system.utils.SystemPaths;
-
 public class SimplifyContact
 {
 
 	public static void main(String[] args) throws Exception
 	{
 		System.out.println("Simplifying contact info");
-		System.setProperty("repo",
-				SystemPaths.CWD.getParent().getParent().toString());
+		TestUtil.prepare();
 
 		List<Entry> entries = Util.readFundingSources();
 
