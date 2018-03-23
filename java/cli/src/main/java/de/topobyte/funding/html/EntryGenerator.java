@@ -5,7 +5,6 @@ import java.nio.file.Path;
 
 import de.topobyte.funding.Entry;
 import de.topobyte.jsoup.Bootstrap;
-import de.topobyte.jsoup.ElementUtil;
 import de.topobyte.jsoup.HTML;
 import de.topobyte.jsoup.HtmlBuilder;
 import de.topobyte.jsoup.components.A;
@@ -30,7 +29,7 @@ public class EntryGenerator extends BaseGenerator
 		content.ac(HTML.h1(entry.getFunder()));
 		content.appendText(entry.getInfo());
 		content.ac(HTML.br());
-		ElementUtil.appendFragmentBody(content, entry.getContact());
+		SiteFragments.appendLink(content, entry.getContact());
 		SiteFragments.appendTags(webPath, content, entry.getTags());
 
 		A linkFeedback = HTML

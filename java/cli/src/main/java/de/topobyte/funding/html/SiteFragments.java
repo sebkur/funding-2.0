@@ -47,4 +47,10 @@ public class SiteFragments
 		}
 	}
 
+	public static void appendLink(Container content, String contact)
+	{
+		A link = content.ac(HTML.a(contact));
+		link.appendText(contact);
+	}
+
 }
