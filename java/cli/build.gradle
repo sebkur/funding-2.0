@@ -11,6 +11,12 @@ dependencies {
     compile 'de.topobyte:webpaths-core:0.0.1'
     compile 'de.topobyte:webpaths-nio:0.0.1'
 
+    compile 'com.vladsch.flexmark:flexmark:0.28.18'
+    compile 'com.vladsch.flexmark:flexmark-ext-gfm-strikethrough:0.28.18'
+    compile 'com.vladsch.flexmark:flexmark-ext-tables:0.28.18'
+    compile 'com.vladsch.flexmark:flexmark-ext-wikilink:0.28.18'
+    compile 'commons-io:commons-io:2.4'
+
     runtime 'org.slf4j:slf4j-log4j12:1.6.1'
     runtime 'log4j:log4j:1.2.16'
 }
