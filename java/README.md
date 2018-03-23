@@ -48,6 +48,7 @@ Where `<task>` can be any of the following:
     find-strange-characters
     sort
     export-funding-sources
+    check-links
 
 Each task accepts its own set of command line parameters. To generate the
 website you would type:
