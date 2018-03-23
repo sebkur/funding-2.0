@@ -45,6 +45,9 @@ public class FundingCli
 					RunFindStrangeCharacters.OPTIONS_FACTORY,
 					RunFindStrangeCharacters.class);
 			options.addCommand("sort", RunSort.OPTIONS_FACTORY, RunSort.class);
+			options.addCommand("export-funding-sources",
+					RunExportFundingSources.OPTIONS_FACTORY,
+					RunExportFundingSources.class);
 			return options;
 		}
 
