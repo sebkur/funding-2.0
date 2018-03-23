@@ -48,6 +48,8 @@ public class FundingCli
 			options.addCommand("export-funding-sources",
 					RunExportFundingSources.OPTIONS_FACTORY,
 					RunExportFundingSources.class);
+			options.addCommand("check-links", RunCheckLinks.OPTIONS_FACTORY,
+					RunCheckLinks.class);
 			return options;
 		}
 
