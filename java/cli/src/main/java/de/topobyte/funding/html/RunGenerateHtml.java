@@ -56,7 +56,7 @@ public class RunGenerateHtml
 		public ExeOptions createOptions()
 		{
 			Options options = new Options();
-	// @formatter:off
+			// @formatter:off
 			OptionHelper.addL(options, OPTION_OUTPUT, true, true, "file", "an output directory");
 			OptionHelper.add(options, "f", OPTION_FORCE, false, false, "file", "overwrite existing files");
 			// @formatter:on
