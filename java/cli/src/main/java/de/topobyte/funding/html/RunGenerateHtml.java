@@ -98,10 +98,11 @@ public class RunGenerateHtml
 		}
 
 		List<Entry> entries = Util.readFundingSources();
+		List<Entry> notOffline = filterNot(entries, "offline");
 
 		IndexGenerator indexGenerator = new IndexGenerator();
 		Path pathIndex = NioPaths.resolve(pathOutput, Site.PATH_INDEX);
-		indexGenerator.create(pathIndex, Site.PATH_INDEX, entries);
+		indexGenerator.create(pathIndex, Site.PATH_INDEX, notOffline);
 
 		AboutGenerator aboutGenerator = new AboutGenerator();
 		Path pathAbout = NioPaths.resolve(pathOutput, Site.PATH_ABOUT);
@@ -162,6 +163,17 @@ public class RunGenerateHtml
 		List<Entry> filtered = new ArrayList<>();
 		for (Entry entry : entries) {
 			if (entry.getTags().contains(tag)) {
+				filtered.add(entry);
+			}
+		}
+		return filtered;
+	}
+
+	private static List<Entry> filterNot(List<Entry> entries, String tag)
+	{
+		List<Entry> filtered = new ArrayList<>();
+		for (Entry entry : entries) {
+			if (!entry.getTags().contains(tag)) {
 				filtered.add(entry);
 			}
 		}
