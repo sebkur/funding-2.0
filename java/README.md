@@ -43,12 +43,12 @@ Then invoke the main executable like this:
 Where `<task>` can be any of the following:
 
     list
-    create-html
+    sort
     clean-up-whitespace
     find-strange-characters
-    sort
-    export-funding-sources
     check-links
+    create-html
+    export-funding-sources
 
 Each task accepts its own set of command line parameters. To generate the
 website you would type:

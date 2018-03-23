@@ -36,20 +36,20 @@ public class FundingCli
 		{
 			DelegateExeOptions options = new DelegateExeOptions();
 			options.addCommand("list", RunList.OPTIONS_FACTORY, RunList.class);
-			options.addCommand("create-html", RunGenerateHtml.OPTIONS_FACTORY,
-					RunGenerateHtml.class);
+			options.addCommand("sort", RunSort.OPTIONS_FACTORY, RunSort.class);
 			options.addCommand("clean-up-whitespace",
 					RunCleanupWhitespace.OPTIONS_FACTORY,
 					RunCleanupWhitespace.class);
 			options.addCommand("find-strange-characters",
 					RunFindStrangeCharacters.OPTIONS_FACTORY,
 					RunFindStrangeCharacters.class);
-			options.addCommand("sort", RunSort.OPTIONS_FACTORY, RunSort.class);
+			options.addCommand("check-links", RunCheckLinks.OPTIONS_FACTORY,
+					RunCheckLinks.class);
+			options.addCommand("create-html", RunGenerateHtml.OPTIONS_FACTORY,
+					RunGenerateHtml.class);
 			options.addCommand("export-funding-sources",
 					RunExportFundingSources.OPTIONS_FACTORY,
 					RunExportFundingSources.class);
-			options.addCommand("check-links", RunCheckLinks.OPTIONS_FACTORY,
-					RunCheckLinks.class);
 			return options;
 		}
 
