@@ -46,7 +46,7 @@ public class Reader
 		try {
 			BufferedReader reader = Files.newBufferedReader(path);
 			csvReader = new CsvMapReader(reader,
-					CsvPreference.EXCEL_NORTH_EUROPE_PREFERENCE);
+					CsvPreference.EXCEL_PREFERENCE);
 
 			final String[] header = csvReader.getHeader(true);
 
