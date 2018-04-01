@@ -37,3 +37,6 @@ More information on this is available in the accompanying
 # Research
 
 * <http://www.forschen-foerdern.org/>
+* <https://stiftungssuche.de/>
+* <https://de.wikipedia.org/wiki/Kategorie:Stiftung_in_Deutschland>
+* <http://www.stiftung-do.org/andere-stiftungen-und-fonds/>
