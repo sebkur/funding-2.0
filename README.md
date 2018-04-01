@@ -33,3 +33,7 @@ tasks such as sorting the entries alphabetically or cleaning up whitespace.
 
 More information on this is available in the accompanying
 [README file](java/README.md).
+
+# Research
+
+* <http://www.forschen-foerdern.org/>
