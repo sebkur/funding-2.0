@@ -13,10 +13,10 @@ sources](https://renewablefreedom.org/grants/alternative-funding-sources).
 The data in this repository is located in a CSV file here:
 [data/funding-sources.csv](data/funding-sources.csv)
 
-It's a simple CSV file with `;` as field delimiter and optional `"` as quote
+It's a simple CSV file with `,` as field delimiter and optional `"` as quote
 characters. The file currently has the following columns:
 
-    Funder;Info;Contact;Tags
+    Funder,Info,Contact,Tags
 
 The `Tags` column contains a comma-separated list of tags/keywords.
 
