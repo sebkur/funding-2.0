@@ -36,11 +36,20 @@ More information on this is available in the accompanying
 
 # Research
 
+## Misc
+
 * <http://www.forschen-foerdern.org/>
 * <https://stiftungssuche.de/>
 * <https://de.wikipedia.org/wiki/Kategorie:Stiftung_in_Deutschland>
 * <http://www.stiftung-do.org/andere-stiftungen-und-fonds/>
 * <https://indiephilanthropy.org>
+* <https://github.com/renewablefreedom/funding-sources>
+* <https://www.fossjobs.net/>
+
+## Guides
+
+* <https://github.com/nayafia/lemonade-stand>
+* <https://github.com/ralphtheninja/open-funding>
 
 ## BMWi
 
