@@ -1,11 +1,9 @@
 package de.topobyte.funding.html;
 
+import de.topobyte.funding.html.widgets.MainMenu;
 import de.topobyte.jsoup.Bootstrap3;
 import de.topobyte.jsoup.ElementUtil;
-import de.topobyte.jsoup.HTML;
 import de.topobyte.jsoup.HtmlBuilder;
-import de.topobyte.jsoup.components.A;
-import de.topobyte.jsoup.components.bootstrap3.Menu;
 import de.topobyte.jsoup.nodes.Element;
 import de.topobyte.webpaths.WebPath;
 
@@ -25,21 +23,7 @@ public class BaseGenerator
 
 	protected void addMenu(WebPath webPath, Element body)
 	{
-		Menu menu = new Menu();
-		body.ac(menu);
-
-		A brand = HTML.a(webPath.relativize(Site.PATH_INDEX).toString());
-		brand.appendText("Funding 2.0");
-
-		A tags = HTML.a(webPath.relativize(Site.PATH_TAGS).toString());
-		tags.appendText("Tags");
-
-		A about = HTML.a(webPath.relativize(Site.PATH_ABOUT).toString());
-		about.appendText("About");
-
-		menu.addBrand(brand);
-		menu.addMain(tags, false);
-		menu.addMain(about, false);
+		body.ac(new MainMenu(webPath));
 	}
 
 }
