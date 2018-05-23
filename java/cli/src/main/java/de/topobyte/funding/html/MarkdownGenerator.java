@@ -10,10 +10,11 @@ import de.topobyte.jsoup.components.bootstrap3.Container;
 import de.topobyte.jsoup.nodes.Element;
 import de.topobyte.webpaths.WebPath;
 
-public class AboutGenerator extends BaseGenerator
+public class MarkdownGenerator extends BaseGenerator
 {
 
-	public void create(Path path, WebPath webPath) throws IOException
+	public void create(Path path, WebPath webPath, String resource)
+			throws IOException
 	{
 		HtmlBuilder htmlBuilder = new HtmlBuilder();
 		setupHeader(webPath, htmlBuilder);
@@ -23,7 +24,7 @@ public class AboutGenerator extends BaseGenerator
 
 		Container content = body.ac(Bootstrap.container());
 
-		Markdown.renderResource(content, "about.md");
+		Markdown.renderResource(content, resource);
 
 		addFooter(webPath, body);
 

@@ -107,9 +107,19 @@ public class RunGenerateHtml
 		Path pathIndex = NioPaths.resolve(pathOutput, Site.PATH_INDEX);
 		indexGenerator.create(pathIndex, Site.PATH_INDEX, notOffline);
 
-		AboutGenerator aboutGenerator = new AboutGenerator();
+		MarkdownGenerator aboutGenerator = new MarkdownGenerator();
 		Path pathAbout = NioPaths.resolve(pathOutput, Site.PATH_ABOUT);
-		aboutGenerator.create(pathAbout, Site.PATH_ABOUT);
+		aboutGenerator.create(pathAbout, Site.PATH_ABOUT, "about.md");
+
+		MarkdownGenerator imprintGenerator = new MarkdownGenerator();
+		Path pathImprint = NioPaths.resolve(pathOutput, Site.PATH_IMPRINT);
+		imprintGenerator.create(pathImprint, Site.PATH_ABOUT, "imprint.md");
+
+		MarkdownGenerator privacyGenerator = new MarkdownGenerator();
+		Path pathPrivacy = NioPaths.resolve(pathOutput,
+				Site.PATH_PRIVACY_POLICY);
+		privacyGenerator.create(pathPrivacy, Site.PATH_ABOUT,
+				"privacy-policy.md");
 
 		TagsGenerator tagsGenerator = new TagsGenerator();
 		Path pathTags = NioPaths.resolve(pathOutput, Site.PATH_TAGS);
