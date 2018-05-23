@@ -9,8 +9,12 @@ public class Site
 
 	public static final WebPath PATH_INDEX = WebPaths.get("index.html");
 	public static final WebPath PATH_ABOUT = WebPaths.get("about.html");
+	public static final WebPath PATH_IMPRINT = WebPaths.get("imprint.html");
+	public static final WebPath PATH_PRIVACY_POLICY = WebPaths
+			.get("privacy-policy.html");
 	public static final WebPath PATH_TAGS = WebPaths.get("tags.html");
 	public static final WebPath PATH_STYLES = WebPaths.get("style.css");
+	public static final WebPath PATH_CUSTOM_STYLES = WebPaths.get("custom.css");
 	public static final WebPath DIR_TAGS = WebPaths.get("tags/");
 	public static final WebPath DIR_ENTRIES = WebPaths.get("entries/");
 

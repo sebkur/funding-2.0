@@ -37,6 +37,8 @@ public class IndexGenerator extends BaseGenerator
 			SiteFragments.appendTags(webPath, content, entry.getTags());
 		}
 
+		addFooter(webPath, body);
+
 		htmlBuilder.write(path);
 	}
 

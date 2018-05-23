@@ -50,6 +50,8 @@ public class TagsGenerator extends BaseGenerator
 
 		addTag(webPath, content, Site.TAG_UNTAGGED, Type.WARNING);
 
+		addFooter(webPath, body);
+
 		htmlBuilder.write(path);
 	}
 

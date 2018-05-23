@@ -25,6 +25,8 @@ public class AboutGenerator extends BaseGenerator
 
 		Markdown.renderResource(content, "about.md");
 
+		addFooter(webPath, body);
+
 		htmlBuilder.write(path);
 	}
 

@@ -17,7 +17,9 @@
 
 package de.topobyte.funding.html;
 
+import java.io.BufferedWriter;
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -28,6 +30,7 @@ import java.util.Set;
 
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.Options;
+import org.apache.commons.io.IOUtils;
 
 import de.topobyte.cssutils.CssFileWriter;
 import de.topobyte.cssutils.css.CssEntry;
@@ -115,6 +118,10 @@ public class RunGenerateHtml
 		Path pathStyles = NioPaths.resolve(pathOutput, Site.PATH_STYLES);
 		createCSS(pathStyles);
 
+		Path pathCustomStyles = NioPaths.resolve(pathOutput,
+				Site.PATH_CUSTOM_STYLES);
+		copyCSS(pathCustomStyles);
+
 		Path dirTags = NioPaths.resolve(pathOutput, Site.DIR_TAGS);
 		Files.createDirectories(dirTags);
 
@@ -199,6 +206,16 @@ public class RunGenerateHtml
 		cssFile.addEntry(a);
 
 		CssFileWriter.write(cssFile, path);
+	}
+
+	private static void copyCSS(Path path) throws IOException
+	{
+		InputStream input = Thread.currentThread().getContextClassLoader()
+				.getResourceAsStream("custom.css");
+
+		BufferedWriter writer = Files.newBufferedWriter(path);
+		IOUtils.copy(input, writer);
+		writer.close();
 	}
 
 }
