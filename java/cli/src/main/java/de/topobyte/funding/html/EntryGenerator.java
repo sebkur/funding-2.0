@@ -43,6 +43,8 @@ public class EntryGenerator extends BaseGenerator
 		linkFeedback.appendText("Feedback via email");
 		content.ac(linkFeedback);
 
+		addFooter(webPath, body);
+
 		htmlBuilder.write(path);
 	}
 
