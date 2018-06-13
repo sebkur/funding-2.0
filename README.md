@@ -50,6 +50,7 @@ More information on this is available in the accompanying
 
 * <https://github.com/nayafia/lemonade-stand>
 * <https://github.com/ralphtheninja/open-funding>
+* <https://github.com/mezod/awesome-indie>
 
 ## BMWi
 
