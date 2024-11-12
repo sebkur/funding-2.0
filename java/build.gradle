@@ -1,5 +1,5 @@
 wrapper {
-    gradleVersion = '5.2.1'
+    gradleVersion = '7.6.2'
 }
 
 allprojects {
@@ -7,14 +7,21 @@ allprojects {
     version = pVersion
 }
 
-subprojects {
+configure([project(':funding-core')]){
+    apply plugin: 'java-library'
+    apply plugin: 'maven-publish'
+}
+
+configure([project(':funding-cli')]){
     apply plugin: 'java'
+}
+
+subprojects {
     apply plugin: 'eclipse'
-    apply plugin: 'maven'
 
     repositories {
         maven {
-            url 'http://mvn.topobyte.de'
+            url 'https://mvn.topobyte.de'
         }
         mavenCentral()
     }
