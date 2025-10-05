@@ -45,7 +45,7 @@ public class FundingSourcesWriter
 		try {
 			BufferedWriter writer = Files.newBufferedWriter(path);
 			mapWriter = new CsvMapWriter(writer,
-					CsvPreference.EXCEL_NORTH_EUROPE_PREFERENCE);
+					CsvPreference.EXCEL_PREFERENCE);
 
 			mapWriter.writeHeader(header);
 
